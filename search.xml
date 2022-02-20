@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+  
+    
+    <entry>
+      <title>Hello World</title>
+      <link href="/2022/02/18/hello-world/"/>
+      <url>/2022/02/18/hello-world/</url>
+      
+        <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>page</title>
+      <link href="/2022/02/13/page/"/>
+      <url>/2022/02/13/page/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>test</title>
+      <link href="/2022/02/13/foodsafety/"/>
+      <url>/2022/02/13/foodsafety/</url>
+      
+        <content type="html"><![CDATA[<h1 id="食安专案"><a href="#食安专案" class="headerlink" title="食安专案"></a>食安专案</h1><p>@(纬创)</p><p>监控后厨人员着装规范，及动火离人警告</p><hr><p><em>记录专案内容及遇到的BUG</em></p><h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ul><li><a href="#oa">项目概况</a></li><li><a href="#model">模型相关</a></li><li><a href="#bug">BUG LIST</a></li><li><a href="#todo">TODO LIST</a></li></ul><hr><h3 id="项目概况"><a href="#项目概况" class="headerlink" title="项目概况"></a><span id='oa'>项目概况</span></h3><p> <strong>时序图</strong></p><p><img src="https://s2.loli.net/2022/02/13/prYqOjazuVJK2xe.png"></p><p><strong>YOLOV5</strong><br>利用目标侦测模型，侦测PERSON, HAT, FACE类。并使用Tracker(Sort)对目标进行跟踪，使用Refiner稳定模型的预测，减少误判。</p><p><strong>EventManager</strong><br>事件管理器，作为mqtt的server端，从mqtt client端接受信号，并根据异常信息的内容自定义对异常事件的报警，数据存储等行为。</p><hr><h3 id="模型相关"><a href="#模型相关" class="headerlink" title="模型相关"></a><span id='model'>模型相关</span></h3><h4 id="测试各个模型gpu使用情况—2022-x2F-02-x2F-09"><a href="#测试各个模型gpu使用情况—2022-x2F-02-x2F-09" class="headerlink" title="测试各个模型gpu使用情况—2022&#x2F;02&#x2F;09"></a>测试各个模型gpu使用情况—2022&#x2F;02&#x2F;09</h4><table><thead><tr><th align="center">Model</th><th align="center">Test Env</th><th align="center">Model Size (MB)</th><th align="center">img size</th><th align="center">stage1: loading model (MB)</th><th align="center">stage2: inference (MB)</th><th align="center">cuda context (MB)</th></tr></thead><tbody><tr><td align="center">yolov5n</td><td align="center">torch 1.7.1+cu101 CUDA:0 (Tesla V100-SXM3-32GB, 32480.5MB)</td><td align="center">3.77</td><td align="center">1x3x640x640</td><td align="center">1270</td><td align="center">1294</td><td align="center">1234</td></tr><tr><td align="center">yolov5s</td><td align="center">torch 1.7.1+cu101 CUDA:0 (Tesla V100-SXM3-32GB, 32480.5MB)</td><td align="center">14</td><td align="center">1x3x640x640</td><td align="center">1304</td><td align="center">1362</td><td align="center">1234</td></tr><tr><td align="center">yolov5m</td><td align="center">torch 1.7.1+cu101 CUDA:0 (Tesla V100-SXM3-32GB, 32480.5MB)</td><td align="center">40.7</td><td align="center">1x3x640x640</td><td align="center">1420</td><td align="center">1460</td><td align="center">1234</td></tr><tr><td align="center">yolov4-TINY</td><td align="center">torch 1.7.1+cu101 CUDA:0 (Tesla V100-SXM3-32GB, 32480.5MB)</td><td align="center">23.1</td><td align="center">1x3x640x640</td><td align="center">1258</td><td align="center">1332</td><td align="center">1234</td></tr></tbody></table><p> <img src="https://s2.loli.net/2022/02/13/FxScEOYgDdT3r5f.png"></p><ol><li>根据表格可以得出，使用Pytorch在DGX2上进行inference时，各个版本的模型GPU消耗情况最小为yolov5n，为1.29G，最大是yolov5m占用显存1.46G。</li><li>模型速度（FPS）的表现上yolov5n和yolov4-tiny最快且差异不大，为100FPS。</li><li>在网上查找资料，得知使用Pytorch进行inference的时候需生成CUDA context, 会占用1个G左右的显存, 在DGX2上的情况是消耗了1.2G左右。</li></ol><p> <strong>相关文献</strong>：</p><ul><li><em><a href="https://zhuanlan.zhihu.com/p/31558973">https://zhuanlan.zhihu.com/p/31558973</a></em></li><li><em><a href="https://discuss.pytorch.org/t/how-do-i-create-torch-tensor-without-any-wasted-storage-space-baggage/131134">https://discuss.pytorch.org/t/how-do-i-create-torch-tensor-without-any-wasted-storage-space-baggage/131134</a></em></li></ul><hr><h3 id="BUG-LSIT"><a href="#BUG-LSIT" class="headerlink" title="BUG LSIT"></a><span id='bug'>BUG LSIT</span></h3><h4 id="RTSP"><a href="#RTSP" class="headerlink" title="RTSP"></a>RTSP</h4><p>使用openv获取视频流</p><ul><li><input disabled="" type="checkbox"> ** BUG 2022&#x2F;02&#x2F;09 :  **<br>问题描述：获取视频流会有掉包情况</li></ul><p><img src="https://s2.loli.net/2022/02/13/ldupvAGItozbn7T.png"></p><p>解决方案: 用ffmpeg取rtsp流时候使用tcp模式(待解决)</p><p><img src="https://s2.loli.net/2022/02/13/26SuijaPxMprzVb.png"></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -rtsp_transport tcp -i &quot;rtsp://x.x.x.x:554/&quot;</span><br></pre></td></tr></table></figure><h4 id="VideoSaver"><a href="#VideoSaver" class="headerlink" title="VideoSaver"></a>VideoSaver</h4><p>连接视频流，监听AI服务端的mqtt的讯号，当收到异常的信号时截取视频流并保存本地视频，然后将视频上传minio服务器做视频存储，更新postgre数据库中存储数据的栏位。</p><ul><li><input checked="" disabled="" type="checkbox"> ** BUG (2022&#x2F;02&#x2F;09) : 已解决(2022&#x2F;02&#x2F;09) **<br>问题描述：查找postgre数据库的表格出现错误</li></ul><p>解决方案: 将数据库表格通过配置文件指定</p><p><img src="https://s2.loli.net/2022/02/13/r9Z6PikE8sY7JwT.png"></p><ul><li><input disabled="" type="checkbox"> ** BUG (2022&#x2F;02&#x2F;09) : **<br>问题描述：出现rtsp断开连接的情况</li></ul><p><img src="https://s2.loli.net/2022/02/13/WvOIBumG7TZ8yNq.png"></p><p>解决方案: 可通过logging模块记录Error log，监控Error Log并发出警告。（待解决）</p><hr><h3 id="TODO-LIST"><a href="#TODO-LIST" class="headerlink" title="TODO LIST"></a><span id='todo'>TODO LIST</span></h3><ul><li><input disabled="" type="checkbox"> 测试单进程多模型，使用配置文件将模型(model)与视频流(source)匹配。多线程方式。</li><li><input disabled="" type="checkbox"> 2022&#x2F;02&#x2F;10 Test mAP for each model</li><li><input disabled="" type="checkbox"> 2022&#x2F;02&#x2F;10 Do research on TensorRT</li><li><input disabled="" type="checkbox"> 动火离人开发</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> Work </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Wistron </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>first try</title>
+      <link href="/2022/02/08/first-try/"/>
+      <url>/2022/02/08/first-try/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+  
+  
+</search>
