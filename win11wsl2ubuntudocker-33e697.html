@@ -1,1 +1,139 @@
-The template name has zero length, please check the "template" field in your Notion table.
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- iOS Safari -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<!-- Chrome, Firefox OS and Opera Status Bar Color -->
+<meta name="theme-color" content="#FFFFFF">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css">
+<link rel="stylesheet" type="text/css"
+  href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.19.0/themes/prism.min.css">
+<link rel="stylesheet" type="text/css" href="css/SourceSansPro.css">
+<link rel="stylesheet" type="text/css" href="css/theme.css">
+<link rel="stylesheet" type="text/css" href="css/notablog.css">
+<!-- Favicon -->
+
+  <link rel="shortcut icon" href="data:image/svg+xml,&lt;svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22&gt;&lt;text text-anchor=%22middle%22 dominant-baseline=%22middle%22 x=%2250%22 y=%2255%22 font-size=%2280%22&gt;📖&lt;/text&gt;&lt;/svg&gt;">
+
+<style>
+  :root {
+    font-size: 20px;
+  }
+</style>
+  <title>Win11用WSL2安装Ubuntu及Docker&nbsp;|&nbsp;Notablog</title>
+  <meta property="og:type" content="blog">
+  <meta property="og:title" content="Win11用WSL2安装Ubuntu及Docker">
+  
+  
+    <meta property="og:image" content="data:image/svg+xml,&lt;svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22&gt;&lt;text text-anchor=%22middle%22 dominant-baseline=%22middle%22 x=%2250%22 y=%2255%22 font-size=%2280%22&gt;👋🏼&lt;/text&gt;&lt;/svg&gt;">
+  
+  <style>
+    .DateTagBar {
+      margin-top: 1.0rem;
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="Navbar">
+  <a href="index.html">
+    <div class="Navbar__Btn">
+      
+        <span><img class="inline-img-icon" src="data:image/svg+xml,&lt;svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22&gt;&lt;text text-anchor=%22middle%22 dominant-baseline=%22middle%22 x=%2250%22 y=%2255%22 font-size=%2280%22&gt;📖&lt;/text&gt;&lt;/svg&gt;"></span>&nbsp;
+      
+      <span>Home</span>
+    </div>
+  </a>
+  
+    
+  
+    
+  
+    
+  
+    
+      <span class="Navbar__Delim">&centerdot;</span>
+      <a href="about.html">
+        <div class="Navbar__Btn">
+          
+            <span><img class="inline-img-icon" src="data:image/svg+xml,&lt;svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22&gt;&lt;text text-anchor=%22middle%22 dominant-baseline=%22middle%22 x=%2250%22 y=%2255%22 font-size=%2280%22&gt;😀&lt;/text&gt;&lt;/svg&gt;"></span>&nbsp;
+          
+          <span>About</span>
+        </div>
+      </a>
+    
+  
+    
+  
+</nav>
+  <header class="Header">
+    
+    <div class="Header__Spacer Header__Spacer--NoCover">
+    </div>
+    
+      <div class="Header__Icon">
+        <span><img class="inline-img-icon" src="data:image/svg+xml,&lt;svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22&gt;&lt;text text-anchor=%22middle%22 dominant-baseline=%22middle%22 x=%2250%22 y=%2255%22 font-size=%2280%22&gt;👋🏼&lt;/text&gt;&lt;/svg&gt;"></span>
+      </div>
+    
+    <h1 class="Header__Title">Win11用WSL2安装Ubuntu及Docker</h1>
+    
+      <div class="DateTagBar">
+        
+          <span class="DateTagBar__Item DateTagBar__Date">Posted on Sun, Sep 3, 2023</span>
+        
+        
+          <span class="DateTagBar__Item DateTagBar__Tag DateTagBar__Tag--purple">
+            <a href="tag/Docker.html">Docker</a>
+          </span>
+        
+      </div>
+    
+  </header>
+  <article id="https://www.notion.so/33e69700832940e48d181335f0b11b27" class="PageRoot"><ul id="https://www.notion.so/22d8006a562444cd91b07978738b0825" class="ColorfulBlock ColorfulBlock--ColorGray TableOfContents"><li class="TableOfContents__Item"><a href="#https://www.notion.so/35b4549f669a4c428ae74bb4c5172448"><div style="margin-left:0px"><span class="SemanticStringArray"><span class="SemanticString">前言</span></span></div></a></li><li class="TableOfContents__Item"><a href="#https://www.notion.so/d2cf888521d24448b6a19625c62348f6"><div style="margin-left:0px"><span class="SemanticStringArray"><span class="SemanticString">Windows子Ubuntu系统下安装docker</span></span></div></a></li><li class="TableOfContents__Item"><a href="#https://www.notion.so/c466a8b2da44466b8b90f69520b21e03"><div style="margin-left:24px"><span class="SemanticStringArray"><span class="SemanticString"><strong class="SemanticString__Fragment SemanticString__Fragment--Bold">原生linux安装docker方式</strong></span></span></div></a></li><li class="TableOfContents__Item"><a href="#https://www.notion.so/255a705624884032a909e6a84bb27fc1"><div style="margin-left:24px"><span class="SemanticStringArray"><span class="SemanticString">遇到的坑</span></span></div></a></li><li class="TableOfContents__Item"><a href="#https://www.notion.so/44fa5e58d9214393839266adb4bc0296"><div style="margin-left:0px"><span class="SemanticStringArray"><span class="SemanticString">为了更好的使用docker</span></span></div></a></li><li class="TableOfContents__Item"><a href="#https://www.notion.so/492f20e4ef0c4a89a7506f7d7fc7e20d"><div style="margin-left:24px"><span class="SemanticStringArray"><span class="SemanticString">更换ubuntu的apt安装源</span></span></div></a></li><li class="TableOfContents__Item"><a href="#https://www.notion.so/496da5881d794a69b5bd94b2b37f18a9"><div style="margin-left:24px"><span class="SemanticStringArray"><span class="SemanticString">更换pip源</span></span></div></a></li><li class="TableOfContents__Item"><a href="#https://www.notion.so/4903573d3e204b138547604e163e11ba"><div style="margin-left:0px"><span class="SemanticStringArray"><span class="SemanticString">参考</span></span></div></a></li><li class="TableOfContents__Item"><a href="#https://www.notion.so/e4866ac8e6a74a228cfe0d213539970a"><div style="margin-left:0px"><span class="SemanticStringArray"><span class="SemanticString">接下来…</span></span></div></a></li></ul><h1 id="https://www.notion.so/35b4549f669a4c428ae74bb4c5172448" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--1"><a class="Anchor" href="#https://www.notion.so/35b4549f669a4c428ae74bb4c5172448"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">前言</span></span></h1><div id="https://www.notion.so/27bcc2ac07bb4fc08f66e1bc117583c5" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">之前在Win10上装过了WSL2，现在系统自动升级到Win11后WSL2还是可以正常使用。所以安装的WSL2的操作就省略了，可以参考</span><span class="SemanticString"><a class="SemanticString__Fragment SemanticString__Fragment--Link" href="https://zhuanlan.zhihu.com/p/148511634">win10利用WSL2安装docker的2种方式 - 知乎 (zhihu.com)</a></span><span class="SemanticString">这篇，里面介绍到WSL2的安装包括docker的安装，这里写这篇文章主要是记录一下WSL2下安装Docker的过程。</span></span></p></div><h1 id="https://www.notion.so/d2cf888521d24448b6a19625c62348f6" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--1"><a class="Anchor" href="#https://www.notion.so/d2cf888521d24448b6a19625c62348f6"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">Windows子Ubuntu系统下安装docker</span></span></h1><div id="https://www.notion.so/ab0abcb2848a452688a7021cc70f65e1" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">参考了网上的一些方法，大概有3中方式实现，自记录了一种个人认为方便的方式。</span></span></p></div><h2 id="https://www.notion.so/c466a8b2da44466b8b90f69520b21e03" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--2"><a class="Anchor" href="#https://www.notion.so/c466a8b2da44466b8b90f69520b21e03"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString"><strong class="SemanticString__Fragment SemanticString__Fragment--Bold">原生linux安装docker方式</strong></span></span></h2><div id="https://www.notion.so/06549652ddf44b6cb94e9e18d571d6cb" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">用官网推荐的</span><span class="SemanticString"><a class="SemanticString__Fragment SemanticString__Fragment--Link" href="https://docs.docker.com/engine/install/ubuntu/#install-using-the-convenience-script">script</a></span><span class="SemanticString">，步骤如下：（个人认为最方便的方法，且不用担心Docker Desktop的Lincense）</span></span></p></div><pre id="https://www.notion.so/0eb8b43defab4fe3a937b7928108e795" class="Code"><code><span class="SemanticStringArray"><span class="SemanticString"><span>$ curl -fsSL &lt;https://get.docker.com&gt; -o get-docker.sh
+$ sudo sh get-docker.sh</span></span></span></code></pre><div id="https://www.notion.so/b30d73e1bd5446e499e2f44b3c0e5ead" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">执行脚本安装过程中，脚本提示“</span><span class="SemanticString"><strong class="SemanticString__Fragment SemanticString__Fragment--Bold">建议使用Docker Desktop for windows</strong></span><span class="SemanticString">”，20s内按Ctrl+C会退出安装，所以需要等待20s，另外此种方式需要访问外网。</span></span></p></div><div id="https://www.notion.so/50f8016b5fb24744b8345fb4fb02b557" class="Image Image--PageWidth"><figure><a href="#"><img src="#" style="width:100%"/></a><figcaption><span class="SemanticStringArray"></span></figcaption></figure></div><div id="https://www.notion.so/05a9543f07bc4823a8b678bd63ad6ca3" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">检查docker安装正常</span></span></p></div><pre id="https://www.notion.so/53fb021b6a234d508d151e216ae60361" class="Code"><code><span class="SemanticStringArray"><span class="SemanticString"><span># 启动docker服务
+$ sudo service docker start
+# 检查dockerd进程启动
+service docker status</span></span></span></code></pre><div id="https://www.notion.so/ac896b0f4b83462a875070639dea8cdb" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString"><strong class="SemanticString__Fragment SemanticString__Fragment--Bold">注意</strong></span><span class="SemanticString">：不同于完全linux虚拟机方式，WLS2下通过</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">apt install docker-ce</code></span><span class="SemanticString">命令安装的docker无法启动，因为WSL2方式的ubuntu里面没有systemd。上述官方get-docker.sh安装的docker，dockerd进程是用ubuntu传统的init方式而非systemd启动的。也可以安装</span><span class="SemanticString"><code class="SemanticString__Fragment SemanticString__Fragment--Code">daemonize</code></span><span class="SemanticString"> 来实现apt安装docker，但用官方的scripts是最快的。参考：</span><span class="SemanticString"><a class="SemanticString__Fragment SemanticString__Fragment--Link" href="https://zhuanlan.zhihu.com/p/421998834">wsl2安装Linux原生Docker - 知乎 (zhihu.com)</a></span></span></p></div><div id="https://www.notion.so/28b92d7e0fbf49c6b15bc5f9957c9be4" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">当然还有使用Docker Desktop for windows的方式，参考：</span><span class="SemanticString"><a class="SemanticString__Fragment SemanticString__Fragment--Link" href="https://zhuanlan.zhihu.com/p/148511634">win10利用WSL2安装docker的2种方式 - 知乎 (zhihu.com)</a></span></span></p></div><h2 id="https://www.notion.so/255a705624884032a909e6a84bb27fc1" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--2"><a class="Anchor" href="#https://www.notion.so/255a705624884032a909e6a84bb27fc1"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">遇到的坑</span></span></h2><div id="https://www.notion.so/1d2becaeb2f84f2dab2fe929060e7ef9" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">如果下载的是Ubuntu22.04版本的可能会遇到docker服务开不起来的问题,原因是由于新的</span><span class="SemanticString"><a class="SemanticString__Fragment SemanticString__Fragment--Link" href="https://so.csdn.net/so/search?q=ubuntu%E7%B3%BB%E7%BB%9F&amp;spm=1001.2101.3001.7020">ubuntu系统</a></span><span class="SemanticString">使用了iptables-nft，而WSL2不支持导致的。</span></span></p></div><div id="https://www.notion.so/dffa3a5b9adc4102b518824283963fd3" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">可以通过以下命令进行修改，输入黑色高亮指令后会出现以下table，接着使用输入数字‘1’选择/usr/sbin/iptables-legacy。</span></span></p></div><pre id="https://www.notion.so/3ec6610b3ada4274b5d0b9fa53018ee0" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><strong class="SemanticString__Fragment SemanticString__Fragment--Bold"><span>sudo update-alternatives --config iptables</span></strong></span><span class="SemanticString"><span>
+There are 2 choices for the alternative iptables (providing /usr/sbin/iptables).
+ 
+  Selection    Path                       Priority   Status
+------------------------------------------------------------
+* 0            /usr/sbin/iptables-nft      20        auto mode
+  1            /usr/sbin/iptables-legacy   10        manual mode
+  2            /usr/sbin/iptables-nft      20        manual mode
+ 
+Press &lt;enter&gt; to keep the current choice[*], or type selection number:</span></span><span class="SemanticString"><strong class="SemanticString__Fragment SemanticString__Fragment--Bold"><span> 1
+</span></strong></span><span class="SemanticString"><span>update-alternatives: using /usr/sbin/iptables-legacy to provide /usr/sbin/iptables (iptables) in manual mode</span></span></span></code></pre><div id="https://www.notion.so/b92ab91802fd49b08f9a918263b997f2" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">修改完成后重启Docker服务即可。</span></span></p></div><h1 id="https://www.notion.so/44fa5e58d9214393839266adb4bc0296" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--1"><a class="Anchor" href="#https://www.notion.so/44fa5e58d9214393839266adb4bc0296"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">为了更好的使用docker</span></span></h1><h3 id="https://www.notion.so/492f20e4ef0c4a89a7506f7d7fc7e20d" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--3"><a class="Anchor" href="#https://www.notion.so/492f20e4ef0c4a89a7506f7d7fc7e20d"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">更换ubuntu的apt安装源</span></span></h3><div id="https://www.notion.so/a7f626ec313c4885bdbb7d4a3bddc299" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">默认的安装源相对国内很慢，我们更换源到阿里云，登录到ubuntu到操作如下：</span></span></p></div><div id="https://www.notion.so/09fd653cdfd04f018625e2db46b151f2" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">备份sources.list</span></span></p></div><pre id="https://www.notion.so/f28814ee05704213b79c45cc6734801c" class="Code"><code><span class="SemanticStringArray"><span class="SemanticString"><span>cp /etc/apt/sources.list /etc/apt/sources.list.bak</span></span></span></code></pre><div id="https://www.notion.so/29309dfe273b40c3aebdd06688b3a435" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">修改sources.list的内容，换源阿里云</span></span></p></div><pre id="https://www.notion.so/ff98d97203da4fa7aa10fee0cb924a81" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span>echo &quot;deb &lt;http://mirrors.aliyun.com/ubuntu/&gt; focal main restricted
+deb &lt;http://mirrors.aliyun.com/ubuntu/&gt; focal-updates main restricted
+deb &lt;http://mirrors.aliyun.com/ubuntu/&gt; focal universe
+deb &lt;http://mirrors.aliyun.com/ubuntu/&gt; focal-updates universe
+deb &lt;http://mirrors.aliyun.com/ubuntu/&gt; focal multiverse
+deb &lt;http://mirrors.aliyun.com/ubuntu/&gt; focal-updates multiverse
+deb &lt;http://mirrors.aliyun.com/ubuntu/&gt; focal-backports main restricted universe multiverse
+deb &lt;http://mirrors.aliyun.com/ubuntu/&gt; focal-security main restricted
+deb &lt;http://mirrors.aliyun.com/ubuntu/&gt; focal-security universe
+deb &lt;http://mirrors.aliyun.com/ubuntu/&gt; focal-security multiverse&quot;&gt;/etc/apt/sources.list
+</span></span></span></code></pre><div id="https://www.notion.so/8b97372fea484b7baea442a6d2321e76" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">执行更新：</span></span></p></div><pre id="https://www.notion.so/195a2db004844c6ba2719b35a343c02d" class="Code"><code><span class="SemanticStringArray"><span class="SemanticString"><span>apt update &amp;&amp; apt upgrade -y</span></span></span></code></pre><h3 id="https://www.notion.so/496da5881d794a69b5bd94b2b37f18a9" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--3"><a class="Anchor" href="#https://www.notion.so/496da5881d794a69b5bd94b2b37f18a9"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">更换pip源</span></span></h3><div id="https://www.notion.so/16ab75249cb842d3ad39c2bc99c01f8f" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString"><strong class="SemanticString__Fragment SemanticString__Fragment--Bold">一次性更换（只作用在本次）</strong></span></span></p></div><pre id="https://www.notion.so/d51b24fc64654079aaadaa3c0c108d67" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span># 指定包名安装，package改成要安装的包名
+pip install package -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
+# 依据requirements.txt安装
+pip install -r requirements.txt -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com</span></span></span></code></pre><div id="https://www.notion.so/d91625d5ea9245898e5f7c10dd0faeed" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString"><strong class="SemanticString__Fragment SemanticString__Fragment--Bold">Linux系统下，修改~/.pip/pip.conf，如果没有该文件则创建；</strong></span></span></p></div><pre id="https://www.notion.so/8e5db9ec382447f588dbc2698e30618d" class="Code Code--NoWrap"><code><span class="SemanticStringArray"><span class="SemanticString"><span>国内常用镜像：
+https://pypi.tuna.tsinghua.edu.cn/simple     #清华
+http://mirrors.aliyun.com/pypi/simple/       #阿里云
+https://pypi.mirrors.ustc.edu.cn/simple/     #中国科技大学
+http://pypi.hustunique.com/                  #华中理工大学
+http://pypi.sdutlinux.org/                   #山东理工大学
+http://pypi.douban.com/simple/               #豆瓣</span></span></span></code></pre><h1 id="https://www.notion.so/4903573d3e204b138547604e163e11ba" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--1"><a class="Anchor" href="#https://www.notion.so/4903573d3e204b138547604e163e11ba"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">参考</span></span></h1><ol class="NumberedListWrapper"><li id="https://www.notion.so/17510e79286a4403897e27186a3c5e64" class="NumberedList" value="1"><span class="SemanticStringArray"><span class="SemanticString"><a class="SemanticString__Fragment SemanticString__Fragment--Link" href="https://zhuanlan.zhihu.com/p/148511634">win10利用WSL2安装docker的2种方式 - 知乎 (zhihu.com)</a></span></span></li><li id="https://www.notion.so/56c03da9c0544fd9b1aa00c8d7b6c733" class="NumberedList" value="2"><span class="SemanticStringArray"><span class="SemanticString"><a class="SemanticString__Fragment SemanticString__Fragment--Link" href="https://zhuanlan.zhihu.com/p/421998834">wsl2安装Linux原生Docker - 知乎 (zhihu.com)</a></span></span></li><li id="https://www.notion.so/0284c563c10c474bb685c248c4c435ee" class="NumberedList" value="3"><span class="SemanticStringArray"><span class="SemanticString"><a class="SemanticString__Fragment SemanticString__Fragment--Link" href="https://blog.csdn.net/0210/article/details/124349371">Docker无法在WSL2的Ubuntu启动的问题_wsl ubuntu22 docker 无法启动_世宝宝的博客-CSDN博客</a></span></span></li><li id="https://www.notion.so/91b35469f3ea45488cf6ec1f0a2a5641" class="NumberedList" value="4"><span class="SemanticStringArray"><span class="SemanticString"><a class="SemanticString__Fragment SemanticString__Fragment--Link" href="https://blog.csdn.net/skyyzq/article/details/113417832">python pip 换国内源的办法（永久和临时两种办法）_pip换源_skyyzq的博客CSDN博客</a></span></span></li></ol><h1 id="https://www.notion.so/e4866ac8e6a74a228cfe0d213539970a" class="ColorfulBlock ColorfulBlock--ColorDefault Heading Heading--1"><a class="Anchor" href="#https://www.notion.so/e4866ac8e6a74a228cfe0d213539970a"><svg width="16" height="16" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><span class="SemanticStringArray"><span class="SemanticString">接下来…</span></span></h1><div id="https://www.notion.so/d3ae383025314f06862edb47cb63263f" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"><span class="SemanticString">在本地电脑装好Ubuntu子系统和docker之后，我打算开发一个streamlit+yolov8的应用，接下来就是构建app运行的docker环境了。会用到Dockerfile和VScode+Devcontainer插件，在</span><span class="SemanticString"><span class="SemanticString__Fragment SemanticString__Fragment--Resource"><a href=""><span class="SemanticStringArray"><span class="SemanticString">Unknown Page</span></span></a></span></span><span class="SemanticString"> 这篇继续写。</span></span></p></div><div id="https://www.notion.so/d4e0c585f0714a6c880d3fee13b520d5" class="ColorfulBlock ColorfulBlock--ColorDefault Text"><p class="Text__Content"><span class="SemanticStringArray"></span></p></div></article>
+  <footer class="Footer">
+  <div>&copy; Notablog 2022</div>
+  <div>&centerdot;</div>
+  <div>Powered by <a href="https://github.com/dragonman225/notablog" target="_blank"
+      rel="noopener noreferrer">Notablog</a>.
+  </div>
+</footer>
+</body>
+
+</html>
